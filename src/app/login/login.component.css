@@ -1,0 +1,48 @@
+/* ตั้งค่ากลางหน้าจอ */
+.login-container {
+  height: 100vh; /* ความสูงเต็มหน้าจอ */
+  display: flex; /* ใช้ Flexbox */
+  justify-content: center; /* จัดให้อยู่กลางแนวนอน */
+  align-items: center; /* จัดให้อยู่กลางแนวตั้ง */
+  background: linear-gradient(to bottom right, #007bff, #6610f2); /* สีพื้นหลังแบบไล่สี */
+  color: #fff; /* สีตัวอักษร */
+  padding: 20px;
+  box-sizing: border-box; /* รวม Padding ในขนาด */
+}
+
+/* การ์ด */
+.card {
+  width: 100%; /* ใช้ความกว้างเต็ม */
+  max-width: 400px; /* กำหนดความกว้างสูงสุด */
+  border-radius: 10px; /* มุมโค้ง */
+  background: #fff; /* พื้นหลังสีขาว */
+  color: #333; /* สีตัวอักษร */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* เงาของการ์ด */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ปุ่ม */
+.card .btn-primary {
+  background-color: #007bff;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.card .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* ฟิลด์อินพุต */
+.card input {
+  border-radius: 5px;
+}
+
+.card .form-label {
+  color: #333;
+}
+
+/* ข้อความแสดงข้อผิดพลาด */
+.text-danger {
+  font-size: 14px;
+}
