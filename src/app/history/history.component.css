@@ -1,0 +1,81 @@
+/* จัดการขนาดของ container */
+.container {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* รองรับการเลื่อนแนวนอน */
+}
+
+/* หัวข้อ */
+.title {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* การจัดการตาราง */
+.table-container {
+  overflow-x: auto; /* ทำให้ตารางสามารถเลื่อนแนวนอนได้ */
+  white-space: nowrap; /* ป้องกันการตัดคำในคอลัมน์ */
+}
+
+.custom-table {
+  width: 100%;
+  min-width: 800px; /* กำหนดขนาดตารางขั้นต่ำ */
+  border-collapse: collapse;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* หัวตาราง */
+.custom-table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+.custom-table th, .custom-table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* แถวสลับสี */
+.custom-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* เอฟเฟกต์เมื่อ hover */
+.custom-table tbody tr:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
+}
+
+/* ปรับขนาดตารางตามหน้าจอ */
+@media (max-width: 768px) {
+  .custom-table th, .custom-table td {
+    font-size: 14px; /* ลดขนาดฟอนต์ในหน้าจอเล็ก */
+    padding: 8px;
+  }
+
+  .custom-table {
+    min-width: 600px; /* ปรับขนาดตารางขั้นต่ำ */
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-table th, .custom-table td {
+    font-size: 12px; /* ลดขนาดฟอนต์ในหน้าจอมือถือ */
+    padding: 6px;
+  }
+
+  .custom-table {
+    min-width: 400px; /* ปรับขนาดตารางขั้นต่ำ */
+  }
+}

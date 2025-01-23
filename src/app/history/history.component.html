@@ -1,0 +1,27 @@
+<div class="container">
+  <h1 class="title">ประวัติการเข้า</h1>
+  <div class="table-container">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>รหัสผู้ใช้</th>
+          <th>ชื่อผู้ใช้</th>
+          <th>เลขห้อง</th>
+          <th>จำนวนการสแกน</th>
+          <th>การเข้าล่าสุด</th>
+          <th>สภาวะอารมณ์</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.user_id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.room_number }}</td>
+          <td>{{ user.total_attendance }}</td>
+          <td>{{ user.last_attendance_time }}</td>
+          <td>{{ user.dominant_emotion }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

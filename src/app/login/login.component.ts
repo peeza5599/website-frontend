@@ -19,7 +19,7 @@ export class LoginComponent {
       (response) => {
         console.log('Login successful:', response);
         alert(`Welcome ${response.user}!`);
-        // this.router.navigate(['/dashboard']); // เปลี่ยนเส้นทางไปหน้า Dashboard
+        this.router.navigate(['/history']);
       },
       (error) => {
         console.error('Login failed:', error);
