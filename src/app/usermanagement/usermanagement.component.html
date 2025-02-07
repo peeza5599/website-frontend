@@ -1,0 +1,21 @@
+<div *ngIf="isLoading" class="loading">Loading...</div>
+
+<div *ngIf="!isLoading && users.length > 0" class="card-container">
+  <div *ngFor="let user of users" class="card">
+    <div class="card-image-container">
+      <img *ngIf="user.image_url" [src]="user.image_url" alt="{{ user.name }}" class="card-image" />
+    </div>
+    <div class="card-content">
+      <h2>{{ user.name }}</h2>
+      <p><strong>Room:</strong> {{ user.Room_Number }}</p>
+      <p><strong>Attendance:</strong> {{ user.total_attendance }}</p>
+      <p><strong>Last Attendance:</strong> {{ user.last_attendance_time }}</p>
+      <p><strong>Standing:</strong> {{ user.standing }}</p>
+    </div>
+    <button class="delete-button" (click)="deleteUser(user.id)">🗑️ ลบ</button>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && users.length === 0">
+  <p>No users found.</p>
+</div>

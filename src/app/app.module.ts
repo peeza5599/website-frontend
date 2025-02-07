@@ -9,11 +9,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HistoryComponent } from './history/history.component';
+import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HistoryComponent
+    HistoryComponent,
+    UsermanagementComponent
   ],
   imports: [
     BrowserModule,
