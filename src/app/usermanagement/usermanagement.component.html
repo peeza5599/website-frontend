@@ -12,8 +12,26 @@
       <p><strong>Last Attendance:</strong> {{ user.last_attendance_time }}</p>
       <p><strong>Standing:</strong> {{ user.standing }}</p>
     </div>
+
+    <button class="edit-button" (click)="editUser(user)">✏️ แก้ไข</button>
     <button class="delete-button" (click)="deleteUser(user.id)">🗑️ ลบ</button>
   </div>
+</div>
+
+<!-- ฟอร์มแก้ไขข้อมูล -->
+<div *ngIf="isEditing">
+  <h2>แก้ไขข้อมูล</h2>
+  <input [(ngModel)]="formData.name" placeholder="ชื่อ" />
+  <input [(ngModel)]="formData.Room_Number" placeholder="หมายเลขห้อง" />
+  <input [(ngModel)]="formData.total_attendance" placeholder="จำนวนการเข้าเรียน" />
+  <input [(ngModel)]="formData.last_attendance_time" placeholder="เวลาล่าสุด" />
+  <input [(ngModel)]="formData.standing" placeholder="สถานะ" />
+
+  <!-- ปุ่มอัปโหลดรูป -->
+  <input type="file" (change)="onFileSelected($event)" />
+
+  <button (click)="updateUser()">✅ บันทึก</button>
+  <button (click)="cancelEdit()">❌ ยกเลิก</button>
 </div>
 
 <div *ngIf="!isLoading && users.length === 0">

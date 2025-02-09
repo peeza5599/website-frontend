@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>เพิ่มผู้ใช้ใหม่</h2>
+
+  <!-- ฟอร์มกรอกข้อมูล -->
+  <form (submit)="onSubmit()" enctype="multipart/form-data">
+    <label for="name">ชื่อ:</label>
+    <input type="text" id="name" [(ngModel)]="formData.name" name="name" required />
+
+    <label for="Room_Number">หมายเลขห้อง:</label>
+    <input type="text" id="Room_Number" [(ngModel)]="formData.Room_Number" name="Room_Number" required />
+
+    <label for="starting_year">ปีที่เริ่มต้น:</label>
+    <input type="number" id="starting_year" [(ngModel)]="formData.starting_year" name="starting_year" required />
+
+    <label for="standing">ชั้น:</label>
+    <input type="text" id="standing" [(ngModel)]="formData.standing" name="standing" required />
+
+
+    <label for="image">อัปโหลดรูปภาพ (216x216 PNG เท่านั้น):</label>
+    <input type="file" id="image" (change)="onFileSelected($event)" accept="image/png" />
+
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary">เพิ่มผู้ใช้</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">ยกเลิก</button>
+    </div>
+  </form>
+</div>
