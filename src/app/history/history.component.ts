@@ -9,10 +9,12 @@ import { HistoryService } from '../history.service';
 })
 export class HistoryComponent {
   users: any[] = [];
-  paginatedUsers: any[] = []; // ข้อมูลที่แสดงในหน้านี้
+  paginatedUsers: any[] = [];
+  filteredUsers: any[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 25;
   totalPages: number = 1;
+  showLatest: boolean = false;
 
   constructor(private historyService: HistoryService) {}
 
@@ -29,15 +31,37 @@ export class HistoryComponent {
   fetchHistory() {
     this.historyService.getUsers().subscribe(data => {
       this.users = data;
-      this.totalPages = Math.ceil(this.users.length / this.itemsPerPage);
+      this.filteredUsers = [...this.users]; // ✅ กำหนดค่าเริ่มต้นให้ filteredUsers
+      this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
       this.updatePagination();
     });
   }
 
+  showLatestOnly() {
+    const latestEntries = new Map();
+
+    this.users.forEach(user => {
+      if (!latestEntries.has(user.user_id) || new Date(user.timestamp) > new Date(latestEntries.get(user.user_id).timestamp)) {
+        latestEntries.set(user.user_id, user);
+      }
+    });
+
+    this.filteredUsers = Array.from(latestEntries.values());
+    this.showLatest = true;
+    this.updatePagination();
+  }
+
+  showAll() {
+    this.filteredUsers = [...this.users];
+    this.showLatest = false;
+    this.updatePagination();
+  }
+
   updatePagination() {
+    this.totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedUsers = this.users.slice(startIndex, endIndex);
+    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
   }
 
   nextPage() {
@@ -53,5 +77,5 @@ export class HistoryComponent {
       this.updatePagination();
     }
   }
-
 }
+

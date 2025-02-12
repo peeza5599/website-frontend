@@ -1,12 +1,18 @@
-<div class="container">
-  <!-- ✅ Navbar สำหรับนำทาง -->
-  <nav class="navbar">
-    <button class="nav-btn" routerLink="/usermanagement">User Management</button>
-    <button class="nav-btn" routerLink="/adduser">Add User</button>
-    <button class="nav-btn active" routerLink="/history">History</button>
-  </nav>
+<!-- ✅ Navbar สำหรับนำทาง -->
+<nav class="navbar">
+  <button class="nav-btn" routerLink="/usermanagement">User Management</button>
+  <button class="nav-btn" routerLink="/adduser">Add User</button>
+  <button class="nav-btn active" routerLink="/history">History</button>
+</nav>
 
+<div class="container">
   <h1 class="title">ประวัติการเข้า</h1>
+
+  <!-- ✅ ปุ่มกรองข้อมูล -->
+  <div class="filter-container">
+    <button class="btn-filter" (click)="showLatestOnly()">📌 แสดงเฉพาะประวัติล่าสุดของแต่ละคน</button>
+    <button class="btn-filter" (click)="showAll()">📂 แสดงทั้งหมด</button>
+  </div>
 
   <div class="table-container">
     <table class="custom-table">
@@ -33,10 +39,10 @@
     </table>
   </div>
 
-  <!-- ✅ Pagination Controls -->
+  <!-- ✅ ปุ่มเปลี่ยนหน้า (Pagination) -->
   <div class="pagination">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">⏮️ ก่อนหน้า</button>
+    <button (click)="prevPage()" [disabled]="currentPage === 1">⬅️ ก่อนหน้า</button>
     <span>หน้า {{ currentPage }} / {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">ถัดไป ⏭️</button>
+    <button (click)="nextPage()" [disabled]="currentPage >= totalPages">ถัดไป ➡️</button>
   </div>
 </div>
