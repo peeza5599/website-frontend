@@ -1,3 +1,10 @@
+<!-- ✅ Navbar สำหรับนำทาง -->
+<nav class="navbar">
+  <button class="nav-btn" routerLink="/usermanagement">User Management</button>
+  <button class="nav-btn" routerLink="/adduser">Add User</button>
+  <button class="nav-btn active" routerLink="/history">History</button>
+</nav>
+
 <div *ngIf="isLoading" class="loading">Loading...</div>
 
 <div *ngIf="!isLoading && users.length > 0" class="card-container">
@@ -13,13 +20,15 @@
       <p><strong>Standing:</strong> {{ user.standing }}</p>
     </div>
 
-    <button class="edit-button" (click)="editUser(user)">✏️ แก้ไข</button>
-    <button class="delete-button" (click)="deleteUser(user.id)">🗑️ ลบ</button>
+    <div class="button-container">
+      <button class="edit-button" (click)="editUser(user)">✏️ แก้ไข</button>
+      <button class="delete-button" (click)="deleteUser(user.id)">🗑️ ลบ</button>
+    </div>
   </div>
 </div>
 
-<!-- ฟอร์มแก้ไขข้อมูล -->
-<div *ngIf="isEditing">
+<!-- ✅ ฟอร์มแก้ไขข้อมูล -->
+<div *ngIf="isEditing" class="edit-form">
   <h2>แก้ไขข้อมูล</h2>
   <input [(ngModel)]="formData.name" placeholder="ชื่อ" />
   <input [(ngModel)]="formData.Room_Number" placeholder="หมายเลขห้อง" />
@@ -27,11 +36,13 @@
   <input [(ngModel)]="formData.last_attendance_time" placeholder="เวลาล่าสุด" />
   <input [(ngModel)]="formData.standing" placeholder="สถานะ" />
 
-  <!-- ปุ่มอัปโหลดรูป -->
+  <!-- ✅ ปุ่มอัปโหลดรูป -->
   <input type="file" (change)="onFileSelected($event)" />
 
-  <button (click)="updateUser()">✅ บันทึก</button>
-  <button (click)="cancelEdit()">❌ ยกเลิก</button>
+  <div class="button-container">
+    <button class="save-button" (click)="updateUser()">✅ บันทึก</button>
+    <button class="cancel-button" (click)="cancelEdit()">❌ ยกเลิก</button>
+  </div>
 </div>
 
 <div *ngIf="!isLoading && users.length === 0">

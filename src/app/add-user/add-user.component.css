@@ -1,58 +1,86 @@
-.container {
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background: #fff;
+/* ✅ Navbar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-h2 {
+.nav-btn {
+  background: #4e54c8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.nav-btn:hover {
+  background: #3b42a1;
+}
+
+.nav-btn.active {
+  background: #3b42a1;
+}
+
+/* ✅ ฟอร์ม */
+.container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.title {
   text-align: center;
   margin-bottom: 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
+.form-container label {
+  display: block;
   font-weight: bold;
-  margin-top: 10px;
+  margin: 10px 0 5px;
 }
 
-input, select {
+.form-container input {
+  width: 100%;
   padding: 8px;
-  margin-top: 5px;
-  border-radius: 5px;
   border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-input[type="file"] {
-  border: none;
-}
-
-.btn-group {
+.button-group {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
 }
 
-button {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
 .btn-primary {
-  background-color: #28a745;
+  background: #2ecc71;
   color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .btn-secondary {
-  background-color: #dc3545;
+  background: #e74c3c;
   color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #27ae60;
+}
+
+.btn-secondary:hover {
+  background: #c0392b;
 }

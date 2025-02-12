@@ -1,81 +1,93 @@
-/* จัดการขนาดของ container */
-.container {
-  max-width: 100%;
-  margin: 20px auto;
-  padding: 10px;
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-x: auto; /* รองรับการเลื่อนแนวนอน */
-}
-
-/* หัวข้อ */
-.title {
-  text-align: center;
-  color: #333;
-  font-size: 24px;
+/* ✅ สไตล์ของ Navbar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
-/* การจัดการตาราง */
-.table-container {
-  overflow-x: auto; /* ทำให้ตารางสามารถเลื่อนแนวนอนได้ */
-  white-space: nowrap; /* ป้องกันการตัดคำในคอลัมน์ */
+/* ✅ ปุ่มนำทาง */
+.nav-btn {
+  background: #4e54c8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
+.nav-btn:hover {
+  background: #3b42a1;
+}
+
+/* ✅ ปุ่มที่กดอยู่ปัจจุบัน */
+.nav-btn.active {
+  background: #2e3192;
+  font-weight: bold;
+}
+
+/* ✅ ตั้งค่าตารางให้ดูดี */
 .custom-table {
   width: 100%;
-  min-width: 800px; /* กำหนดขนาดตารางขั้นต่ำ */
   border-collapse: collapse;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-/* หัวตาราง */
-.custom-table thead {
-  background-color: #007bff;
-  color: white;
 }
 
 .custom-table th, .custom-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
   text-align: center;
-  padding: 10px;
-  border: 1px solid #ddd;
 }
 
-/* แถวสลับสี */
-.custom-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+.custom-table th {
+  background-color: #4e54c8;
+  color: white;
 }
 
-/* เอฟเฟกต์เมื่อ hover */
-.custom-table tbody tr:hover {
-  background-color: #f1f1f1;
-  transition: background-color 0.3s ease;
+.custom-table tr:hover {
+  background-color: #f5f5f5;
 }
 
-/* ปรับขนาดตารางตามหน้าจอ */
-@media (max-width: 768px) {
-  .custom-table th, .custom-table td {
-    font-size: 14px; /* ลดขนาดฟอนต์ในหน้าจอเล็ก */
-    padding: 8px;
-  }
-
-  .custom-table {
-    min-width: 600px; /* ปรับขนาดตารางขั้นต่ำ */
-  }
+/* ✅ ตั้งค่าหน้าตา container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 480px) {
-  .custom-table th, .custom-table td {
-    font-size: 12px; /* ลดขนาดฟอนต์ในหน้าจอมือถือ */
-    padding: 6px;
-  }
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
-  .custom-table {
-    min-width: 400px; /* ปรับขนาดตารางขั้นต่ำ */
-  }
+.pagination button {
+  background: #4e54c8;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin: 0 5px;
+}
+
+.pagination button:hover {
+  background: #3b42a1;
+}
+
+.pagination button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+  margin: auto 10px;
+  font-weight: bold;
 }

@@ -1,5 +1,13 @@
 <div class="container">
+  <!-- ✅ Navbar สำหรับนำทาง -->
+  <nav class="navbar">
+    <button class="nav-btn" routerLink="/usermanagement">User Management</button>
+    <button class="nav-btn" routerLink="/adduser">Add User</button>
+    <button class="nav-btn active" routerLink="/history">History</button>
+  </nav>
+
   <h1 class="title">ประวัติการเข้า</h1>
+
   <div class="table-container">
     <table class="custom-table">
       <thead>
@@ -13,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let user of paginatedUsers">
           <td>{{ user.user_id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.room_number }}</td>
@@ -23,5 +31,12 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- ✅ Pagination Controls -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">⏮️ ก่อนหน้า</button>
+    <span>หน้า {{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">ถัดไป ⏭️</button>
   </div>
 </div>

@@ -1,9 +1,9 @@
 <div class="login-container">
-  <div class="card">
+  <div class="card shadow">
     <h2 class="text-center mb-4">Login</h2>
     <form (ngSubmit)="onLogin()">
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
+      <div class="mb-3 input-group">
+        <span class="input-group-text"><i class="bi bi-person"></i></span>
         <input
           type="text"
           id="username"
@@ -14,8 +14,8 @@
           required
         />
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
+      <div class="mb-3 input-group">
+        <span class="input-group-text"><i class="bi bi-lock"></i></span>
         <input
           type="password"
           id="password"
@@ -29,5 +29,6 @@
       <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>
     <p *ngIf="errorMessage" class="text-danger text-center mt-3">{{ errorMessage }}</p>
+
   </div>
 </div>

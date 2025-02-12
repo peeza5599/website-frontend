@@ -1,48 +1,51 @@
-/* ตั้งค่ากลางหน้าจอ */
+/* ✅ ตั้งค่าพื้นหลังให้ดูดีขึ้น */
 .login-container {
-  height: 100vh; /* ความสูงเต็มหน้าจอ */
-  display: flex; /* ใช้ Flexbox */
-  justify-content: center; /* จัดให้อยู่กลางแนวนอน */
-  align-items: center; /* จัดให้อยู่กลางแนวตั้ง */
-  background: linear-gradient(to bottom right, #007bff, #6610f2); /* สีพื้นหลังแบบไล่สี */
-  color: #fff; /* สีตัวอักษร */
-  padding: 20px;
-  box-sizing: border-box; /* รวม Padding ในขนาด */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
 }
 
-/* การ์ด */
+/* ✅ ตกแต่งการ์ดล็อกอิน */
 .card {
-  width: 100%; /* ใช้ความกว้างเต็ม */
-  max-width: 400px; /* กำหนดความกว้างสูงสุด */
-  border-radius: 10px; /* มุมโค้ง */
-  background: #fff; /* พื้นหลังสีขาว */
-  color: #333; /* สีตัวอักษร */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* เงาของการ์ด */
-  padding: 20px;
-  box-sizing: border-box;
+  width: 100%;
+  max-width: 380px;
+  padding: 30px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
 }
 
-/* ปุ่ม */
-.card .btn-primary {
-  background-color: #007bff;
+/* ✅ เพิ่มเอฟเฟกต์ hover */
+.card:hover {
+  transform: scale(1.02);
+}
+
+/* ✅ ปรับสไตล์ปุ่ม */
+.btn-primary {
+  background: #4e54c8;
   border: none;
-  transition: background-color 0.3s ease;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
 }
 
-.card .btn-primary:hover {
-  background-color: #0056b3;
+.btn-primary:hover {
+  background: #3b42a1;
 }
 
-/* ฟิลด์อินพุต */
-.card input {
-  border-radius: 5px;
+/* ✅ ปรับสไตล์ช่องป้อนข้อมูล */
+.form-control {
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 16px;
 }
 
-.card .form-label {
-  color: #333;
-}
-
-/* ข้อความแสดงข้อผิดพลาด */
-.text-danger {
-  font-size: 14px;
+/* ✅ ปรับสไตล์ไอคอนในช่องกรอก */
+.input-group-text {
+  background: #f0f0f0;
+  border: none;
 }

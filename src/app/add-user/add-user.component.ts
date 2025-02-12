@@ -48,7 +48,7 @@ export class AddUserComponent {
     this.userService.addUser(formData).subscribe({
       next: (response) => {
         alert(`✅ เพิ่มผู้ใช้สำเร็จ! \n⏰ เวลาเข้าร่วมล่าสุด: ${response.last_attendance_time}`);
-        this.router.navigate(['/']); // กลับไปหน้าหลัก
+        this.router.navigate(['/history']); // กลับไปหน้าหลัก
       },
       error: (err) => {
         console.error('❌ Error adding user:', err);
