@@ -10,6 +10,7 @@ export class UsermanagementService {
   private updateUrl = 'http://127.0.0.1:5000/api/update-user/';
   private deleteUrl = 'http://127.0.0.1:5000/api/delete-user/';
   private adduserUrl = 'http://127.0.0.1:5000/api/add-user';
+  private addfacereconUrl = 'http://127.0.0.1:5000/api/upload-face-images';
 
   constructor(private http: HttpClient) {}
 
@@ -27,5 +28,17 @@ export class UsermanagementService {
 
   addUser(userData: any): Observable<any> {
     return this.http.post(`${this.adduserUrl}`, userData);
+  }
+
+  // ✅ API สำหรับอัปโหลดรูปจดจำใบหน้า
+  uploadFaceImages(roomNumber: string, faceImages: File[]): Observable<any> {
+    const formData = new FormData();
+    formData.append('Room_Number', roomNumber); // 🔹 ระบุหมายเลขห้อง
+
+    faceImages.forEach((file) => {
+      formData.append('faceImages', file); // ✅ ส่งรูปทั้งหมดไปยัง API
+    });
+
+    return this.http.post(`${this.addfacereconUrl}`, formData); // ✅ แก้ URL ที่ผิด
   }
 }
