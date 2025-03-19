@@ -3,23 +3,42 @@
   <button class="nav-btn" routerLink="/usermanagement">User Management</button>
   <button class="nav-btn active" routerLink="/adduser">Add User</button>
   <button class="nav-btn" routerLink="/history">History</button>
+  <button class="logout-btn" routerLink="/login">🚪 Logout</button>
 </nav>
 
 <div class="container">
   <h2>เพิ่มผู้ใช้ใหม่</h2>
 
   <form (submit)="onSubmit()" enctype="multipart/form-data">
-    <label for="name">ชื่อ:</label>
-    <input type="text" id="name" [(ngModel)]="formData.name" name="name" required />
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      id="name"
+      [(ngModel)]="formData.name"
+      name="name"
+      required
+      pattern="^[A-Za-z ]+$"
+      (keypress)="validateEnglishInput($event)"
+    />
 
-    <label for="Room_Number">หมายเลขห้อง:</label>
-    <input type="text" id="Room_Number" [(ngModel)]="formData.Room_Number" name="Room_Number" required />
 
-    <label for="starting_year">ปีที่เริ่มต้น:</label>
-    <input type="number" id="starting_year" [(ngModel)]="formData.starting_year" name="starting_year" required />
+    <label for="role">Role:</label>
+    <select id="role" [(ngModel)]="formData.role" name="role" (change)="updateFormFields()" required>
+      <option value="" disabled selected>-- เลือก Role --</option>
+      <option value="student">Student</option>
+      <option value="teacher">Teacher</option>
+      <option value="visitor">Visitor</option>
+    </select>
 
-    <label for="standing">ชั้น:</label>
-    <input type="text" id="standing" [(ngModel)]="formData.standing" name="standing" required />
+    <label for="standing">Major:</label>
+    <input type="text" id="standing" [(ngModel)]="formData.standing" name="standing" [readonly]="formData.role !== 'visitor'" required />
+
+    <label for="studyClass">Class:</label>
+    <select id="studyClass" [(ngModel)]="formData.studyClass" name="studyClass" required>
+      <option *ngIf="formData.role === 'student' || formData.role === 'teacher'" value="Database">Database</option>
+      <option *ngIf="formData.role === 'student' || formData.role === 'teacher'" value="Network">Network</option>
+      <option *ngIf="formData.role === 'visitor'" value="-">-</option>
+    </select>
 
     <!-- ✅ อัปโหลดรูปโปรไฟล์ -->
     <label for="profileImage">อัปโหลดรูปโปรไฟล์ (216x216 PNG เท่านั้น):</label>

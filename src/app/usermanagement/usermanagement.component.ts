@@ -20,6 +20,14 @@ export class UsermanagementComponent implements OnInit {
     this.fetchUsers();
   }
 
+  updateFormFields(): void {
+    if (this.formData.role === 'student' || this.formData.role === 'teacher') {
+      this.formData.standing = 'Com-Tech';
+    } else {
+      this.formData.standing = '-';
+    }
+  }
+
   fetchUsers(): void {
     this.userService.getUsers().subscribe({
       next: (data) => {
@@ -31,6 +39,14 @@ export class UsermanagementComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  validateEnglishInput(event: KeyboardEvent): void {
+    const char = event.key;
+    const pattern = /^[A-Za-z ]+$/;
+    if (!pattern.test(char)) {
+      event.preventDefault();
+    }
   }
 
   editUser(user: any): void {

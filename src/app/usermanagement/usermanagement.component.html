@@ -3,6 +3,7 @@
   <button class="nav-btn" routerLink="/usermanagement">User Management</button>
   <button class="nav-btn" routerLink="/adduser">Add User</button>
   <button class="nav-btn active" routerLink="/history">History</button>
+  <button class="logout-btn" routerLink="/login">🚪 Logout</button>
 </nav>
 
 <div *ngIf="isLoading" class="loading">Loading...</div>
@@ -14,10 +15,12 @@
     </div>
     <div class="card-content">
       <h2>{{ user.name }}</h2>
-      <p><strong>Room:</strong> {{ user.Room_Number }}</p>
+      <p><strong>ID:</strong> {{ user.Room_Number }}</p>
+      <p><strong>Role:</strong> {{ user.role }}</p>
+      <p><strong>Major:</strong> {{ user.standing }}</p>
+      <p><strong>Class:</strong> {{ user.studyClass }}</p>
       <p><strong>Attendance:</strong> {{ user.total_attendance }}</p>
       <p><strong>Last Attendance:</strong> {{ user.last_attendance_time }}</p>
-      <p><strong>Standing:</strong> {{ user.standing }}</p>
     </div>
 
     <div class="button-container">
@@ -27,17 +30,37 @@
   </div>
 </div>
 
-<!-- ✅ ฟอร์มแก้ไขข้อมูล -->
 <div *ngIf="isEditing" class="edit-form">
   <h2>แก้ไขข้อมูล</h2>
-  <input [(ngModel)]="formData.name" placeholder="ชื่อ" />
-  <input [(ngModel)]="formData.Room_Number" placeholder="หมายเลขห้อง" />
-  <input [(ngModel)]="formData.total_attendance" placeholder="จำนวนการเข้าเรียน" />
-  <input [(ngModel)]="formData.last_attendance_time" placeholder="เวลาล่าสุด" />
-  <input [(ngModel)]="formData.standing" placeholder="สถานะ" />
 
-  <!-- ✅ ปุ่มอัปโหลดรูป -->
-  <input type="file" (change)="onFileSelected($event)" />
+  <!-- ✅ ชื่อ -->
+  <label for="name">ชื่อ:</label>
+  <input id="name" [(ngModel)]="formData.name" name="name" required       pattern="^[A-Za-z ]+$"
+  (keypress)="validateEnglishInput($event)" />
+
+  <!-- ✅ Role -->
+  <label for="role">Role:</label>
+  <select id="role" [(ngModel)]="formData.role" name="role" (change)="updateFormFields()" required>
+    <option value="student">Student</option>
+    <option value="teacher">Teacher</option>
+    <option value="visitor">Visitor</option>
+  </select>
+
+  <!-- ✅ Major -->
+  <label for="standing">Major:</label>
+  <input type="text" id="standing" [(ngModel)]="formData.standing" name="standing" [readonly]="formData.role !== 'visitor'" required />
+
+  <!-- ✅ Class -->
+  <label for="studyClass">Class:</label>
+  <select id="studyClass" [(ngModel)]="formData.studyClass" name="studyClass" [disabled]="formData.role === 'visitor'" required>
+    <option *ngIf="formData.role === 'student' || formData.role === 'teacher'" value="Database">Database</option>
+    <option *ngIf="formData.role === 'student' || formData.role === 'teacher'" value="Network">Network</option>
+    <option *ngIf="formData.role === 'visitor'" value="-">-</option>
+  </select>
+
+  <!-- ✅ อัปโหลดรูป -->
+  <label for="profileImage">อัปโหลดรูปโปรไฟล์ (PNG เท่านั้น):</label>
+  <input type="file" id="profileImage" (change)="onFileSelected($event)" accept="image/png" />
 
   <div class="button-container">
     <button class="save-button" (click)="updateUser()">✅ บันทึก</button>
