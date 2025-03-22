@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsermanagementService } from '../usermanagement.service';
 
@@ -7,51 +7,20 @@ import { UsermanagementService } from '../usermanagement.service';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent implements OnInit {
-  users: any[] = [];
-  latestUser: any = {};
+export class AddUserComponent {
+  profileImage: File | null = null;
+  faceImages: File[] = [];
 
   formData: any = {
     name: '',
     role: '',
-    studyClass: '',
+    studyClass: '', // ✅ ค่าเริ่มต้น
     total_attendance: '0',
     standing: '',
     last_attendance_time: new Date().toISOString().slice(0, 19).replace('T', ' '),
-    Room_Number: '',
   };
 
-  profileImage: File | null = null;
-  faceImages: File[] = [];
-
   constructor(private userService: UsermanagementService, private router: Router) {}
-
-  // ✅ โหลดข้อมูลผู้ใช้ล่าสุด
-  ngOnInit(): void {
-    this.fetchUsers();
-  }
-
-  fetchUsers(): void {
-    this.userService.getUsers().subscribe({
-      next: (data) => {
-        if (data) {
-          const usersArray = Object.values(data);
-          if (usersArray.length > 0) {
-            const maxRoomNumber = Math.max(...usersArray.map((user: any) => parseInt(user.Room_Number, 10) || 0), 0);
-            this.users = usersArray.filter((user: any) => parseInt(user.Room_Number, 10) === maxRoomNumber);
-            this.latestUser = this.users.length > 0 ? this.users[0] : {};
-            this.formData.Room_Number = (maxRoomNumber + 1).toString();
-          } else {
-            // ✅ กรณีไม่มีผู้ใช้ในระบบเลย กำหนด Room_Number เป็น "1"
-            this.formData.Room_Number = "1";
-          }
-        }
-      },
-      error: (err) => {
-        console.error('❌ Error fetching users:', err);
-      }
-    });
-  }
 
   // ✅ ฟังก์ชันเลือกไฟล์โปรไฟล์
   onFileSelected(event: any): void {
@@ -72,7 +41,7 @@ export class AddUserComponent implements OnInit {
   updateFormFields(): void {
     if (this.formData.role === 'student' || this.formData.role === 'teacher') {
       this.formData.standing = 'Com-Tech';
-      this.formData.studyClass = 'Database'; // ✅ ตั้งค่า studyClass ให้เป็นค่าเริ่มต้น
+      this.formData.studyClass = 'Database'; // ✅ ค่าเริ่มต้น
     } else {
       this.formData.standing = '-';
       this.formData.studyClass = '-'; // ✅ กำหนดค่าเป็น "-" สำหรับ visitor
@@ -105,30 +74,23 @@ export class AddUserComponent implements OnInit {
       formData.append(key, this.formData[key]);
     });
 
-
     if (this.profileImage) {
       formData.append('image', this.profileImage);
     }
 
-
+    // ✅ ส่งข้อมูลไปยัง API `add-user`
     this.userService.addUser(formData).subscribe({
       next: (response) => {
         alert(`✅ เพิ่มผู้ใช้สำเร็จ! \n⏰ เวลาเข้าร่วมล่าสุด: ${response.last_attendance_time}`);
 
+        // ✅ ใช้ user_id ที่ได้จาก API
+        const user_id = response.user_id;
 
+        // ✅ อัปโหลดใบหน้าถ้ามี
         if (this.faceImages.length > 0) {
-          this.userService.uploadFaceImages(this.formData.Room_Number, this.faceImages).subscribe({
-            next: () => {
-              alert(`✅ อัปโหลดรูปสำหรับจดจำใบหน้าเสร็จสิ้น!`);
-              this.router.navigate(['/history']);
-            },
-            error: (err) => {
-              console.error('❌ Error uploading face images:', err);
-              alert('❌ เกิดข้อผิดพลาดในการอัปโหลดรูปใบหน้า');
-            }
-          });
+          this.uploadFaceImages(user_id);
         } else {
-          this.router.navigate(['/history']);
+          this.router.navigate(['/history']); // ✅ ไม่มีใบหน้า → ไปหน้าประวัติทันที
         }
       },
       error: (err) => {
@@ -136,7 +98,26 @@ export class AddUserComponent implements OnInit {
         alert('❌ เกิดข้อผิดพลาดในการเพิ่มผู้ใช้');
       }
     });
+  }
 
+  // ✅ ฟังก์ชันอัปโหลดใบหน้า พร้อม `user_id`
+  uploadFaceImages(user_id: string): void {
+    const faceFormData = new FormData();
+    faceFormData.append('user_id', user_id); // ✅ ส่ง user_id ไปด้วย
+    this.faceImages.forEach(file => {
+      faceFormData.append('faceImages', file);
+    });
+
+    this.userService.uploadFaceImages(user_id, this.faceImages).subscribe({
+      next: () => {
+        alert(`✅ อัปโหลดรูปสำหรับจดจำใบหน้าเสร็จสิ้น!`);
+        this.router.navigate(['/history']);
+      },
+      error: (err) => {
+        console.error('❌ Error uploading face images:', err);
+        alert('❌ เกิดข้อผิดพลาดในการอัปโหลดรูปใบหน้า');
+      }
+    });
   }
 
   // 📌 ฟังก์ชันยกเลิก

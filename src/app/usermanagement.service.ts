@@ -31,14 +31,14 @@ export class UsermanagementService {
   }
 
   // ✅ API สำหรับอัปโหลดรูปจดจำใบหน้า
-  uploadFaceImages(roomNumber: string, faceImages: File[]): Observable<any> {
+  uploadFaceImages(userId: string, faceImages: File[]): Observable<any> {
     const formData = new FormData();
-    formData.append('Room_Number', roomNumber); // 🔹 ระบุหมายเลขห้อง
+    formData.append('user_id', userId); // ✅ ใช้ 'user_id' แทน 'Room_Number'
 
     faceImages.forEach((file) => {
       formData.append('faceImages', file); // ✅ ส่งรูปทั้งหมดไปยัง API
     });
 
-    return this.http.post(`${this.addfacereconUrl}`, formData); // ✅ แก้ URL ที่ผิด
+    return this.http.post(`${this.addfacereconUrl}`, formData); // ✅ URL ถูกต้องแล้ว
   }
 }

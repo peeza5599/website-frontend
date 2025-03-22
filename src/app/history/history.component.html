@@ -21,7 +21,6 @@
         <tr>
           <th>รหัสผู้ใช้</th>
           <th>ชื่อผู้ใช้</th>
-          <th>เลขห้อง</th>
           <th>จำนวนการสแกน</th>
           <th>การเข้าล่าสุด</th>
           <th>สภาวะอารมณ์</th>
@@ -31,7 +30,6 @@
         <tr *ngFor="let user of paginatedUsers">
           <td>{{ user.user_id }}</td>
           <td>{{ user.name }}</td>
-          <td>{{ user.room_number }}</td>
           <td>{{ user.total_attendance }}</td>
           <td>{{ user.timestamp }}</td>
           <td>{{ user.dominant_emotion }}</td>
