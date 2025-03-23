@@ -7,6 +7,11 @@
 </nav>
 
 <div class="container">
+  <div class="overlay" *ngIf="isLoading">
+    <div class="loader">
+      ⏳ กำลังเพิ่มผู้ใช้...
+    </div>
+  </div>
   <h2>เพิ่มผู้ใช้ใหม่</h2>
 
   <form (submit)="onSubmit()" enctype="multipart/form-data">

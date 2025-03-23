@@ -8,8 +8,10 @@ import { UsermanagementService } from '../usermanagement.service';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent {
+  users: any[] = [];
   profileImage: File | null = null;
   faceImages: File[] = [];
+  isLoading: boolean = false;
 
   formData: any = {
     name: '',
@@ -21,6 +23,23 @@ export class AddUserComponent {
   };
 
   constructor(private userService: UsermanagementService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.fetchUsers();
+  }
+
+  fetchUsers(): void {
+    this.userService.getUsers().subscribe({
+      next: (data) => {
+        this.users = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching user data:', err);
+        this.isLoading = false;
+      }
+    });
+  }
 
   // ✅ ฟังก์ชันเลือกไฟล์โปรไฟล์
   onFileSelected(event: any): void {
@@ -53,6 +72,11 @@ export class AddUserComponent {
     const files: File[] = Array.from(event.target.files);
     this.faceImages = [];
 
+    if (files.length > 10) {
+      alert('❌ จำกัดจำนวนอัปโหลดไม่เกิน 10 รูป');
+      return;
+    }
+
     files.forEach((file: File) => {
       if (file.type.startsWith('image/')) {
         this.faceImages.push(file);
@@ -64,10 +88,18 @@ export class AddUserComponent {
 
   // ✅ 📌 ฟังก์ชันส่งข้อมูลไป API
   onSubmit(): void {
-    if (!this.formData.name) {
-      alert('❌ กรุณากรอกข้อมูลให้ครบ');
+    if (!this.formData.name || this.faceImages.length > 10) {
+      alert('❌ กรุณากรอกข้อมูลให้ครบ ');
       return;
     }
+
+    const nameExists = this.users.some(user => user.name.toLowerCase() === this.formData.name.trim().toLowerCase());
+    if (nameExists) {
+      alert('❌ มีผู้ใช้ชื่อนี้อยู่แล้วในระบบ');
+      return;
+    }
+
+    this.isLoading = true; // ✅ เริ่มโหลด
 
     const formData = new FormData();
     Object.keys(this.formData).forEach(key => {
@@ -78,32 +110,29 @@ export class AddUserComponent {
       formData.append('image', this.profileImage);
     }
 
-    // ✅ ส่งข้อมูลไปยัง API `add-user`
     this.userService.addUser(formData).subscribe({
       next: (response) => {
-        alert(`✅ เพิ่มผู้ใช้สำเร็จ! \n⏰ เวลาเข้าร่วมล่าสุด: ${response.last_attendance_time}`);
-
-        // ✅ ใช้ user_id ที่ได้จาก API
         const user_id = response.user_id;
 
-        // ✅ อัปโหลดใบหน้าถ้ามี
         if (this.faceImages.length > 0) {
           this.uploadFaceImages(user_id);
         } else {
-          this.router.navigate(['/history']); // ✅ ไม่มีใบหน้า → ไปหน้าประวัติทันที
+          this.isLoading = false;
+          this.router.navigate(['/history']);
         }
       },
       error: (err) => {
         console.error('❌ Error adding user:', err);
         alert('❌ เกิดข้อผิดพลาดในการเพิ่มผู้ใช้');
+        this.isLoading = false;
       }
     });
   }
 
-  // ✅ ฟังก์ชันอัปโหลดใบหน้า พร้อม `user_id`
+
   uploadFaceImages(user_id: string): void {
     const faceFormData = new FormData();
-    faceFormData.append('user_id', user_id); // ✅ ส่ง user_id ไปด้วย
+    faceFormData.append('user_id', user_id);
     this.faceImages.forEach(file => {
       faceFormData.append('faceImages', file);
     });
@@ -111,11 +140,13 @@ export class AddUserComponent {
     this.userService.uploadFaceImages(user_id, this.faceImages).subscribe({
       next: () => {
         alert(`✅ อัปโหลดรูปสำหรับจดจำใบหน้าเสร็จสิ้น!`);
+        this.isLoading = false;
         this.router.navigate(['/history']);
       },
       error: (err) => {
         console.error('❌ Error uploading face images:', err);
         alert('❌ เกิดข้อผิดพลาดในการอัปโหลดรูปใบหน้า');
+        this.isLoading = false;
       }
     });
   }

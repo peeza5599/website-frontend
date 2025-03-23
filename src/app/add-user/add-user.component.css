@@ -152,4 +152,27 @@ input[type="file"]:hover {
     flex-direction: column;
     gap: 10px;
   }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* พื้นหลังทึบ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .loader {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
 }
