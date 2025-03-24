@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HistoryService {
-  private apiUrl = 'http://localhost:5000/api/users';
+  private apiUrl = 'https://website-backend-o383.onrender.com/api/users';
 
   constructor(private http: HttpClient) { }
 
