@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsermanagementService {
-  private apiUrl = 'http://127.0.0.1:5000/api/realtime-data';
-  private updateUrl = 'http://127.0.0.1:5000/api/update-user/';
-  private deleteUrl = 'http://127.0.0.1:5000/api/delete-user/';
-  private adduserUrl = 'http://127.0.0.1:5000/api/add-user';
-  private addfacereconUrl = 'http://127.0.0.1:5000/api/upload-face-images';
+  private apiUrl = 'https://website-backend-o383.onrender.com/api/realtime-data';
+  private updateUrl = 'https://website-backend-o383.onrender.com/api/update-user/';
+  private deleteUrl = 'https://website-backend-o383.onrender.com/api/delete-user/';
+  private adduserUrl = 'https://website-backend-o383.onrender.com/api/add-user';
+  private addfacereconUrl = 'https://website-backend-o383.onrender.com/api/upload-face-images';
 
   constructor(private http: HttpClient) {}
 

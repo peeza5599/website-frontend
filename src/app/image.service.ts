@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ImageService {
-  private apiUrl = 'http://localhost:5000/images'; // URL ของ Backend
+  private apiUrl = 'https://website-backend-o383.onrender.com/images'; // URL ของ Backend
 
   constructor(private http: HttpClient) {}
 
